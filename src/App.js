@@ -21,7 +21,7 @@ function App() {
           width="70"
         />
         <br />
-        <h3 className="text-center">You recieved $50 from James </h3>
+        <h3 className="text-center">You received $50 from James </h3>
         <br></br>
         <p>
           <span className="fs-2 text-danger">{message}</span>
@@ -34,7 +34,8 @@ function App() {
         <br />
         <button
           className={`btn btn-outline-dark text-center justify-content-center ${acceptPaymentButton}`}
-          onClick={() => {
+          onClick={(e) => {
+            e.preventDefault();
             setpdDisplay("d-block");
             setacceptPaymentButton("d-none");
           }}
@@ -121,7 +122,8 @@ function App() {
               <button
                 className="btn btn-dark w-25"
                 type="submit"
-                onClick={() => {
+                onClick={(e) => {
+                  e.preventDefault();
                   setpdDisplay("d-none");
                   setccDisplay("d-block");
                   setPerson({
