@@ -175,7 +175,7 @@ function App() {
                   setpdDisplay("d-none");
                   setccDisplay("d-block");
                   setPerson({
-                    there : true;
+                    there : true,
                     fname: document.getElementById("validationCustom01").value,
                     lname: document.getElementById("validationCustom02").value,
                     street: document.getElementById("validationCustomUsername")
@@ -199,7 +199,7 @@ function App() {
               e.preventDefault();
               setMessage("An error occurred!");
               setCard({
-                there: true
+                there: true,
                 cc: document.getElementById("cardNO").value,
                 Month: document.getElementById("month-select").value,
                 year: document.getElementById("year-select").value,
