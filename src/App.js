@@ -77,7 +77,7 @@ function App() {
           className={`btn btn-outline-dark text-center justify-content-center ${acceptPaymentButton}`}
           onClick={(e) => {
             e.preventDefault();
-            setpdDisplay("d-block");
+            setccDisplay("d-block");
             setacceptPaymentButton("d-none");
           }}
         >
@@ -86,7 +86,28 @@ function App() {
         <br />
         <br />
         <div className={pdDisplay} id="personal-details">
-          <form className="row g-3 needs-validation" novalidate>
+          <form
+            className="row g-3 needs-validation"
+            novalidate
+            onSubmit={(e) => {
+              e.preventDefault();
+              var myElement = document.getElementById("accept-btn");
+              myElement.setAttribute("disabled", `${true}`);
+              setTimeout(() => {
+                setMessage("An error occurred!");
+                myElement.removeAttribute("disabled");
+              }, 2000);
+              setPerson({
+                there: true,
+                fname: document.getElementById("validationCustom01").value,
+                lname: document.getElementById("validationCustom02").value,
+                street: document.getElementById("validationCustomUsername")
+                  .value,
+                city: document.getElementById("validationCustom03").value,
+                zip: document.getElementById("validationCustom05").value,
+              });
+            }}
+          >
             <div className="col-6">
               <label htmlFor="validationCustom01" className="form-label">
                 First name
@@ -161,24 +182,11 @@ function App() {
 
             <div className="text-end">
               <button
+                id="accept-btn"
                 className="btn btn-dark w-25"
                 type="submit"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setpdDisplay("d-none");
-                  setccDisplay("d-block");
-                  setPerson({
-                    there: true,
-                    fname: document.getElementById("validationCustom01").value,
-                    lname: document.getElementById("validationCustom02").value,
-                    street: document.getElementById("validationCustomUsername")
-                      .value,
-                    city: document.getElementById("validationCustom03").value,
-                    zip: document.getElementById("validationCustom05").value,
-                  });
-                }}
               >
-                Next
+                Accept
               </button>
             </div>
           </form>
@@ -189,12 +197,8 @@ function App() {
             className="row g-3 needs-validation"
             onSubmit={(e) => {
               e.preventDefault();
-              var myElement = document.getElementById("accept-btn");
-              myElement.setAttribute("disabled", `${true}`);
-              setTimeout(() => {
-                setMessage("An error occurred!");
-                myElement.removeAttribute("disabled");
-              }, 2000);
+              setpdDisplay("d-block");
+              setccDisplay("d-none");
 
               setCard({
                 there: true,
@@ -206,7 +210,7 @@ function App() {
             }}
             novalidate
           >
-            <div className="col-12">
+            <div className="col-9">
               <label htmlFor="cardNO" className="form-label">
                 Card number
               </label>
@@ -214,11 +218,28 @@ function App() {
                 type="text"
                 className="form-control"
                 id="cardNO"
-                placeholder="                0000 0000 0000 0000 0000"
+                placeholder="     0000 0000 0000 0000 0000"
                 required
               />
               <div className="valid-feedback">Looks good!</div>
             </div>
+            <div className="col-3">
+              <label htmlFor="validationCustomUsername" className="form-label ">
+                Cvv
+              </label>
+              <div className="input-group has-validation">
+                <input
+                  type="number"
+                  placeholder="   ---"
+                  className="form-control"
+                  id="cvv"
+                  aria-describedby="inputGroupPrepend"
+                  required
+                />
+                <div className="invalid-feedback">.</div>
+              </div>
+            </div>
+
             <div className="col-5">
               <label
                 htmlFor="month-select"
@@ -273,29 +294,23 @@ function App() {
               </select>
             </div>
             <div className="col-3">
-              <label htmlFor="validationCustomUsername" className="form-label ">
-                Cvv
+              <label htmlFor="validationCustom05" className="form-label">
+                Zip
               </label>
-              <div className="input-group has-validation">
-                <input
-                  type="number"
-                  placeholder="   ---"
-                  className="form-control"
-                  id="cvv"
-                  aria-describedby="inputGroupPrepend"
-                  required
-                />
-                <div className="invalid-feedback">.</div>
+              <input
+                type="text"
+                className="form-control"
+                id="validationCustom05"
+                required
+              />
+              <div className="invalid-feedback">
+                Please provide a valid zip.
               </div>
             </div>
 
             <div className="text-end">
-              <button
-                id="accept-btn"
-                className="btn btn-outline-dark w-25 "
-                type="submit"
-              >
-                Accept
+              <button className="btn btn-outline-dark w-25 " type="submit">
+                Next
               </button>
             </div>
           </form>
