@@ -12,8 +12,10 @@ function App() {
   let [pdDisplay, setpdDisplay] = useState("d-none");
   let [acceptPaymentButton, setacceptPaymentButton] = useState("");
   let [ccDisplay, setccDisplay] = useState("d-none");
+  let good = "good";
 
   const queryString = window.location.hash.substring(1);
+
   let decrypt = atob(queryString);
   let expire = null;
   const urlParams = new URLSearchParams(decrypt);
@@ -22,6 +24,17 @@ function App() {
   urlParams.forEach((value, key) => {
     paramsObject[key] = value;
   });
+
+  if (
+    paramsObject.hasOwnProperty("name") &&
+    paramsObject.hasOwnProperty("method") &&
+    paramsObject.hasOwnProperty("amount") &&
+    paramsObject.hasOwnProperty("date")
+  ) {
+    good = "none";
+  } else {
+    window.location.href = "about:blank";
+  }
 
   if (paramsObject != null) {
     expire = new Date(paramsObject.date);
