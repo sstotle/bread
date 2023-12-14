@@ -62,13 +62,13 @@ function App() {
           width="90"
         />
         <br />
-        <h3 className="text-center">You received $450 from Daniel </h3>
+        <h3 className="text-center">You received $450 from Daren </h3>
         <br></br>
         <p>
           <span className="fs-2 text-danger">{message}</span>
         </p>
         <small className="text-center">
-          You have untill 12/09/2023 to accept this payment
+          You have untill 12/10/2023 to accept this payment
         </small>
         <br />
         <br />
